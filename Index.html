@@ -1,0 +1,313 @@
+<!--BY ITESH KUMAR GAVEL--!>
+<!DOCTYPE html>
+<html lang="en">
+<!-- -------------------------HEAD-------------------- -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <title>To Do List</title>
+    <!-- ----------------CSS------------------ -->
+    <style>
+        body{
+            margin-left: 0%;
+            margin-right: 0%;
+            min-width: 200px;
+            font-size:20px;
+            background-color: cadetblue;
+            background: linear-gradient(139deg,#03ddffcb 0%,#ff0381b6 90%);
+           
+        }
+
+        * { box-sizing: border-box;}
+
+        ol {
+            margin: 0;
+            padding: 0%;
+        }
+
+        ol li {
+            cursor: pointer;
+            position: relative;
+            width: 65%;
+            margin: 0.5%;
+            padding-top: 0px;
+            padding-right: 30px;
+            padding-bottom: 0px;
+            padding-left: 15px;
+            list-style-type: none;
+            background: #eee;
+            font-size: 22px;
+            transition: 0.2s;
+            
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+             user-select: none;
+        }
+
+       
+        ol li:hover {
+            background: #ddd;
+        }
+
+
+        #header{
+            background-color: #f44336;
+            height: fit-content;
+            color: black;
+            text-align: center;
+            top: 0%;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        #footer{
+            background-color: black;
+            position: fixed;
+            color:white;
+            font-size: 15px;
+            bottom: 0;
+            
+            width: 100%;
+        }
+
+
+        input{
+            margin: 0;
+            border-radius: 0;
+            height: 40px;
+            width: 55% ;
+            margin: 25px;
+            font-size: 16px;
+            padding: 10px;
+        }
+
+
+        button{
+            height: auto;
+            width: auto;
+            margin: 0px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: rgb(250, 241, 241);
+            background: #222;
+            border-radius: 5px;            
+            text-align: center;
+        }
+    
+        
+        .addTask{
+            background-color: #e7f3f3;
+            border-style:solid;
+            border-color: rgb(7, 53, 7);
+            border-width: 3px;
+            width: 70%;
+        }
+        
+
+        .notCompleted, .Completed{
+            margin: 5px ;
+            padding: 10px;
+        }
+
+        #btnAdd{
+            cursor: pointer;
+        }
+        
+       
+        .hiP {
+             background-color: red;
+        }
+
+        .medP {
+            background-color: #FFBF00;
+        }
+
+        .lowP {
+            background-color: green;
+        }
+        
+    </style>
+</head>
+
+<!-- -----------------------BODY --------------------------------------->
+
+<body>
+    <div id="header" align="center"> 
+        <h2>Priority To Do List</h2>
+    </div>
+
+    <div align="center">
+        <div align="center" class="addTask">
+           <input type="text" id="text" placeholder="Please Enter Your task....">    
+            <br>
+            <p> <strong> Set Priority : </strong>              
+                 <label>
+                    <input type="radio" style="width: auto;  height: auto;" name="rgPrior" value="low" id="rgPrior_2"/>
+                    Low</label>
+                <label>
+                    <input type="radio" style="width: auto;  height: auto;" name="rgPrior" value="med" id="rgPrior_1"/>
+                    Medium</label>
+                <label>
+                    <input type="radio" style="width: auto; height: auto;" name="rgPrior" value="hi" id="rgPrior_0"/>
+                    High</label>               
+            </p>       
+            <p>
+                <input type="button"  name="btnAdd" id="btnAdd" value="Add Task" style="width: auto; background-color: rgb(221, 171, 135);" onClick="chapter05()" />
+            </p>        
+        </div>
+        <br><br><br>
+    </div>
+    
+    <div>
+        <h3 style="text-align: center; ">YOUR SAVED TASK WILL APPEAR HERE</h3>
+        <ol class="notCompleted">
+        </ol>
+    </div>
+    <br><br><br><br><br>
+    Click the below Buttons to get the list of Task of respective Priority
+    <div>
+        <button onclick="lowTask();" style="background-color: green ;width: 90px; height: 35px;">Low</button>
+        <ul class="lowList" id='lowTasks'>
+        </ul>
+    </div>
+
+    <div>
+        <button onclick="mediumTask();" style="background-color: #FFBF00;width: 90px; height: 35px">Medium</button>
+        <ul class="mediumList" id = "medTasks">
+        </ul>
+    </div>
+
+    <div>
+        <button onclick="highTask();" style="background-color: red;width: 90px; height: 35px">High</button>
+        <ul class="highList" id="highTasks">
+        </ul>
+    </div>
+
+    
+
+ <br><br><br><br>
+    <div id="footer">
+        
+        Project Made By : Itesh Kumar Gavel  
+       
+        
+        <marquee>Web Development</marquee>
+    </div>
+
+ <!-- -----------------------------SCRIPT------------------------------ -->
+    <script>
+        function chapter05() {
+            var list = document.getElementsByClassName('notCompleted')[0];
+            btn_colors = {
+                'hi': 'hiP',
+                'med': 'medP',
+                'low': 'lowP'
+            }
+            const radios = document.getElementsByName('rgPrior');
+
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                btn_selected_color = (btn_colors[radios[i].value]);
+                break;
+                }
+            }
+
+            var todo = document.getElementById('text').value;
+            var span = document.createElement('span')
+            span.appendChild(document.createTextNode(todo));
+            var entry = document.createElement('li');
+            
+            const delBtn1 = document.createElement('button'); 
+            delBtn1.setAttribute("style","float:right;");
+                     
+            delBtn1.innerHTML = 'Delete';
+            
+                        
+            if(todo==''){
+               alert("Please Enter Your Task..!")
+            }
+
+            else{
+
+                if((!radios[0].checked)&&(!radios[1].checked)&&(!radios[2].checked)){
+                    alert("Please select Priority For Your Entered Task")
+                }
+                
+                else{
+                    entry.className = btn_selected_color;
+                    entry.appendChild(span);
+                    
+                    list.appendChild(entry);
+                                        
+                    entry.appendChild(delBtn1);                        
+
+                    delBtn1.addEventListener('click', function(){
+                        const parent = this.parentNode;
+                        parent.remove();
+                    });
+                }
+            }
+            document.getElementById('text').value = '';
+        }
+
+        //======================NEW BUTTONS==================        
+        const lowTask=()=>{
+            
+            const lowLists = document.getElementById('lowTasks')
+            lowLists.innerHTML = '';
+            const low_tasks = document.getElementsByClassName('lowP');
+
+            const delBtn1 = document.createElement('button');             
+            
+            for (var i = 0, length = low_tasks.length;  i < length; i++){
+                var toAdd = low_tasks[i].querySelector('span').innerText
+                var lowItem = document.createElement('li');
+
+                lowItem.innerHTML = toAdd
+                lowLists.appendChild(lowItem);
+
+            }
+        }
+
+        const mediumTask=()=>{
+            const medLists = document.getElementById('medTasks')
+            medLists.innerHTML = '';
+            const med_tasks = document.getElementsByClassName('medP');
+
+            const delBtn1 = document.createElement('button');             
+            
+            for (var i = 0, length = med_tasks.length;  i < length; i++){
+                var toAdd = med_tasks[i].querySelector('span').innerText
+                var lowItem = document.createElement('li');
+                
+                lowItem.innerHTML = toAdd
+                medLists.appendChild(lowItem);
+
+            }
+        }
+
+        const highTask=()=>{
+            const highLists = document.getElementById('highTasks')
+            highLists.innerHTML = '';
+            const high_tasks = document.getElementsByClassName('hiP');
+
+            const delBtn1 = document.createElement('button');             
+                       
+            for (var i = 0, length = high_tasks.length;  i < length; i++){
+                var toAdd = high_tasks[i].querySelector('span').innerText
+                var lowItem = document.createElement('li');
+                
+                lowItem.innerHTML = toAdd
+                highLists.appendChild(lowItem);
+
+            }
+        }
+        
+    </script>
+</body>
+</html>
